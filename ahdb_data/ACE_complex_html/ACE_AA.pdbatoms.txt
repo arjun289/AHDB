@@ -1,0 +1,11 @@
+Number of distances calculated: 10
+complex/B/ALA/703/N to complex/A/HIS/353/NE2: 3.958
+complex/B/ALA/703/N to complex/A/ALA/354/O: 2.993
+complex/B/ALA/703/N to complex/A/GLU/384/OE2: 3.063
+complex/B/ALA/703/N to complex/A/ZN/1627/ZN: 3.815
+complex/B/ALA/703/O to complex/A/HIS/353/NE2: 3.084
+complex/B/ALA/703/O to complex/A/HIS/513/NE2: 3.092
+complex/B/ALA/703/O to complex/A/TYR/523/OH: 2.971
+complex/B/ALA/704/O to complex/A/GLN/281/NE2: 3.000
+complex/B/ALA/704/O to complex/A/LYS/511/NZ: 2.873
+complex/B/ALA/704/O to complex/A/TYR/520/OH: 2.756
