@@ -1,2 +1,1 @@
 Serial_ID, Ligand_ID, Smiles, MW, logP, logD, logSw, tPSA, RotatableB, RigidB, Flexibility, HBD, HBA, HBD_HBA, Rings, MaxSizeRing, NumCharges, TotalCharge, HeavyAtoms, CarbonAtoms, HeteroAtoms, ratio_H_by_C, Lipinski_Violation, Solubility_mg_per_l, SolubilityForecastIndex, Oral_Bioavailability_VEBER, Oral_Bioavailability_EGAN, TrafficLights, 4_400, 3_75, Phospholipidosis, Fsp3, StereoCenters, PPI_Friendly, Result, Alert
-	
