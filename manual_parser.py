@@ -60,10 +60,10 @@ def folder_to_dict_link(path,pep,link,isACE):
             fields = csv.reader(field_names_file)
             for row in fields:
                 field_names = row
-
-    if os.path.isfile(path+isACE+pep+link):
-        row_dict = {field_names[0]:path+isACE+pep+link}
-    else:
+    try:
+        with open(pwd+path+isACE+pep+link, 'r',encoding='utf-8'):
+            row_dict = {field_names[0]:path+isACE+pep+link}
+    except FileNotFoundError:
         row_dict = {fd : "#" for fd in field_names}
 
     return row_dict
@@ -74,10 +74,10 @@ def folder_to_dict_duallink(path,pep,link1,link2,isACE):
             fields = csv.reader(field_names_file)
             for row in fields:
                 field_names = row
-
-    if os.path.isfile(path+isACE+pep+link1):
-        row_dict = {field_names[0]:path+isACE+pep+link1,field_names[1]:path+isACE+pep+link2}
-    else:
+    try:
+        with open(pwd+path+isACE+pep+link1, 'r',encoding='utf-8'):
+            row_dict = {field_names[0]:path+isACE+pep+link1,field_names[1]:path+isACE+pep+link2}
+    except FileNotFoundError:
         row_dict = {fd : "#" for fd in field_names}
 
     return row_dict
@@ -103,25 +103,10 @@ with open('alles_pep.json', 'w') as jsonfile:
         row_ACE_pics = folder_to_dict_link(ACE_pics,pep,".png","ACE_")
 
         row_da = folder_to_dict_link(da,pep,".pdb","")
-        row_htmls = folder_to_dict_link(htmls,pep,".html","")
+        row_htmls = folder_to_dict_link(htmls,pep,".pdb.html","")
         row_mini_strc = folder_to_dict_link(mini_strc,pep,".pdb","")
         row_pics = folder_to_dict_link(pics,pep,".png","")
 
         row_all = {**row_ic,**row_admet, **row_mw,**row_ACE_html,**row_ACE_comp,**row_ACE_pics,**row_da,**row_htmls,**row_mini_strc,**row_pics}
         json.dump(row_all, jsonfile)
         jsonfile.write('\n')
-
-    
-
-
-
-# csvfile = open('AA', 'r',encoding='utf-8')
-# jsonfile = open('AA_ic.json', 'w')
-
-# fieldnames = ("Peptide_Sequence", "Origin", "Peptide_Preparation",
-#               "Isolation_Method", "ACE_inhibition_assay", "In-vivo_or_in-vitro",
-#               "IC50_micromol_per_L", "Reference", "Binding_Energy_kcal_per_mol")
-# reader = csv.DictReader( csvfile, fieldnames,delimiter=';')
-# for row in reader:
-#     json.dump(row, jsonfile)
-#     jsonfile.write('\n')
