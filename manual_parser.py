@@ -3,6 +3,8 @@ import json
 import os
 
 pwd =  os.getcwd()
+peps = [line.rstrip() for line in open('peptides_1588.pf')]
+
 heads = "field_names.txt"
 #raw
 ic = pwd+"/ahdb_data/ic_function/"
@@ -26,11 +28,13 @@ def folder_to_dict_raw(path,pep):
             fields = csv.reader(field_names_file)
             for row in fields:
                 field_names = row
-    
-    with open(path+pep, 'r',encoding='utf-8') as csvfile:
-        reader = csv.DictReader( csvfile, field_names,delimiter=';')
-        for row in reader:
-            row_dict = row
+    try:
+        with open(path+pep, 'r',encoding='utf-8') as csvfile:
+            reader = csv.DictReader( csvfile, field_names,delimiter=';')
+            for row in reader:
+                row_dict = row
+    except FileNotFoundError:
+        row_dict = {fd : "#" for fd in field_names}
 
     return row_dict
 
@@ -40,11 +44,13 @@ def folder_to_dict_pdb(path,pep):
             fields = csv.reader(field_names_file)
             for row in fields:
                 field_names = row
-    
-    with open(path+pep+'.pdb', 'r',encoding='utf-8') as csvfile:
-        reader = csv.DictReader( csvfile, field_names,delimiter=';')
-        for row in reader:
-            row_dict = row
+    try:
+        with open(path+pep+'.pdb', 'r',encoding='utf-8') as csvfile:
+            reader = csv.DictReader( csvfile, field_names,delimiter=';')
+            for row in reader:
+                row_dict = row
+    except FileNotFoundError:
+        row_dict = {fd : "#" for fd in field_names}
 
     return row_dict
 
@@ -54,8 +60,11 @@ def folder_to_dict_link(path,pep,link,isACE):
             fields = csv.reader(field_names_file)
             for row in fields:
                 field_names = row
- 
-    row_dict = {field_names[0]:path+isACE+pep+link}
+
+    if os.path.isfile(path+isACE+pep+link):
+        row_dict = {field_names[0]:path+isACE+pep+link}
+    else:
+        row_dict = {fd : "#" for fd in field_names}
 
     return row_dict
 
@@ -65,20 +74,24 @@ def folder_to_dict_duallink(path,pep,link1,link2,isACE):
             fields = csv.reader(field_names_file)
             for row in fields:
                 field_names = row
- 
-    row_dict = {field_names[0]:path+isACE+pep+link1,field_names[1]:path+isACE+pep+link2}
+
+    if os.path.isfile(path+isACE+pep+link1):
+        row_dict = {field_names[0]:path+isACE+pep+link1,field_names[1]:path+isACE+pep+link2}
+    else:
+        row_dict = {fd : "#" for fd in field_names}
 
     return row_dict
 
-# not using isfile checks
-peppy_list = os.scandir(ic)
-peps = [ n.name for n in peppy_list ]
-peps.remove(heads)
+# using isfile checks
+# peppy_list = os.scandir(ic)
+# peps = [ n.name for n in peppy_list ]
+# peps.remove(heads)
 
 
 
 with open('alles_pep.json', 'w') as jsonfile:
     for pep in peps:
+        print(pep)
         row_ic = folder_to_dict_raw(ic,pep)
         row_admet = folder_to_dict_raw(admet,pep)
 
