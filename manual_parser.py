@@ -62,7 +62,7 @@ def folder_to_dict_link(path,pep,link,isACE):
                 field_names = row
     try:
         with open(pwd+path+isACE+pep+link, 'r',encoding='utf-8'):
-            row_dict = {field_names[0]:path+isACE+pep+link}
+            row_dict = {field_names[0]:pwd+path+isACE+pep+link}
     except FileNotFoundError:
         row_dict = {fd : "#" for fd in field_names}
 
@@ -76,7 +76,7 @@ def folder_to_dict_duallink(path,pep,link1,link2,isACE):
                 field_names = row
     try:
         with open(pwd+path+isACE+pep+link1, 'r',encoding='utf-8'):
-            row_dict = {field_names[0]:path+isACE+pep+link1,field_names[1]:path+isACE+pep+link2}
+            row_dict = {field_names[0]:pwd+path+isACE+pep+link1,field_names[1]:pwd+path+isACE+pep+link2}
     except FileNotFoundError:
         row_dict = {fd : "#" for fd in field_names}
 
