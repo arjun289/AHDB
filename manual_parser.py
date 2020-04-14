@@ -87,7 +87,7 @@ def folder_to_dict_duallink(path,pep,link1,link2,isACE):
 # peps = [ n.name for n in peppy_list ]
 # peps.remove(heads)
 
-
+idx=1
 
 with open('alles_pep.json', 'w') as jsonfile:
     for pep in peps:
@@ -107,6 +107,12 @@ with open('alles_pep.json', 'w') as jsonfile:
         row_mini_strc = folder_to_dict_link(mini_strc,pep,".pdb","")
         row_pics = folder_to_dict_link(pics,pep,".png","")
 
+        row_idx = {"_id":idx}
+        row_par = {"index":row_idx}
+        idx = idx +1
+        json.dump(row_par, jsonfile)
+        jsonfile.write('\n')
+        
         row_all = {**row_ic,**row_admet, **row_mw,**row_ACE_html,**row_ACE_comp,**row_ACE_pics,**row_da,**row_htmls,**row_mini_strc,**row_pics}
         json.dump(row_all, jsonfile)
         jsonfile.write('\n')
